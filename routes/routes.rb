@@ -5,13 +5,12 @@ require 'date'
 require 'httparty'
 require 'json'
 require 'sinatra'
-require 'date'
 
 class MyAppRoutes < Sinatra::Base
   URI = URI('http://www.calendario.com.br/api/api_feriados.php')
   TOKEN = 'dnAudmluaWNpdXMucGVyZWlyYUBnbWFpbC5jb20maGFzaD0xNTMxMTU2MTc='
-  OPTIONAL_DAY_OFF_TYPE = 4
-  CONVENTIONAL_HOLIDAY_TYPE = 9
+  OPTIONAL_DAY_OFF_TYPE = 4       # Code 4 is for 'Ponto Facultativo' -- a optional holiday (like Carnival)
+  CONVENTIONAL_HOLIDAY_TYPE = 9   # Code 9 is for 'Dia Convencional' -- a festive day that may or may not be a holiday (depends of each city)
 
   before do
     content_type :json
@@ -52,6 +51,8 @@ class MyAppRoutes < Sinatra::Base
     JSON.pretty_generate(get_response(params))
   end
 
+  private
+
   def get_response(options = { year: DateTime.now.year, state: '', city: '' })
     query = build_query(options)
 
@@ -81,4 +82,4 @@ class MyAppRoutes < Sinatra::Base
 
     query
   end
-end
+end # end-class
