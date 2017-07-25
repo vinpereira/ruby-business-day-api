@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '~>2.4'
 
-gem 'httparty', '~>0.15.5'
+gem 'httparty', '~>0.15.6'
 gem 'libxml-ruby', '~>3.0.0'
 gem 'mongoid', '~>6.2.0'
 gem 'puma', '~>3.9.1'
