@@ -17,7 +17,15 @@ class MyAppRoutes < Sinatra::Base
 
   helpers do
     def normalize(str)
-      str.force_encoding("UTF-8").unicode_normalize(:nfkd).encode('ASCII-8BIT', replace: '')
+      str.force_encoding("UTF-8").unicode_normalize(:nfkd).encode('ASCII-8BIT', replace: '').gsub(/\s/, '_').upcase
+    end
+
+    def city_exists?(state, city)
+      f = File.read("#{Dir.pwd}/mock/estados-cidades.json")
+      hash = JSON.parse(f)
+      state_hash = hash["estados"].detect { |s| s["sigla"].upcase == state }
+      result = state_hash["cidades"].detect { |c| normalize(c) == city }
+      ! result.nil?
     end
   end
 
@@ -27,7 +35,7 @@ class MyAppRoutes < Sinatra::Base
 
   get '/:state/:city/holiday/:date' do
     date = Date.strptime("#{ params[:date] }", "%Y-%m-%d")
-    hp = { city: normalize(params[:city]).upcase, state: params[:state].upcase, year: date.year }
+    hp = { city: normalize(params[:city]), state: params[:state].upcase, year: date.year }
 
     get_holiday(hp)
 
@@ -44,7 +52,7 @@ class MyAppRoutes < Sinatra::Base
   get '/:year/:state/:city/range/:start_date/:end_date' do
     start_date = Date.strptime("#{ params[:year] }-#{ params[:start_date] }", "%Y-%m-%d")
     end_date = Date.strptime("#{ params[:year] }-#{ params[:end_date] }", "%Y-%m-%d")
-    hp = { city: normalize(params[:city]).upcase, state: params[:state].upcase, year: params[:year] }
+    hp = { city: normalize(params[:city]), state: params[:state].upcase, year: params[:year] }
 
     holiday = get_holiday(hp)
 
@@ -59,7 +67,7 @@ class MyAppRoutes < Sinatra::Base
 
   get '/:year/:state/:city' do
     hp = {
-      city: normalize(params[:city]).upcase,
+      city: normalize(params[:city]),
       state: params[:state].upcase,
       year: params[:year],
     }
@@ -70,15 +78,17 @@ class MyAppRoutes < Sinatra::Base
   end
 
   private
-  
+
   def save_holiday(params = {})
     response = get_response(params)
+
+    puts response
 
     holiday = Holiday.new
 
     holiday.year = params[:year]
-    holiday.state = response["events"]["location"]["state"]
-    holiday.city = response["events"]["location"]["city"]
+    holiday.state = params[:state]
+    holiday.city = params[:city]
     holiday.country = response["events"]["location"]["country"]
 
     holiday.save!
@@ -96,10 +106,15 @@ class MyAppRoutes < Sinatra::Base
   end
 
   def get_holiday(params = {})
+    unless city_exists?(params[:state], params[:city])
+      halt 404, JSON.pretty_generate({ "message" => "This state or city does not exists" })
+    end
+
     holiday = Holiday.where(year: params[:year], state: params[:state], city: params[:city])
 
     unless holiday.exists?
       holiday = save_holiday(params)
+      return holiday
     end
 
     holiday.first
