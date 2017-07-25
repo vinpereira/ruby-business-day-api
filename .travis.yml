@@ -1,0 +1,11 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - docker build -t business-day-api .
+  - docker run -d --rm --name business-day-service -p 9292:9292 business-day-api
+  - docker ps -a
