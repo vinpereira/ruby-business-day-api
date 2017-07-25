@@ -70,6 +70,7 @@ class MyAppRoutes < Sinatra::Base
   end
 
   private
+  
   def save_holiday(params = {})
     response = get_response(params)
 
