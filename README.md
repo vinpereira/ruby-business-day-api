@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/vinpereira/ruby-business-day-api.svg?branch=mongodb)](https://travis-ci.org/vinpereira/ruby-business-day-api)
+[![Build Status](https://travis-ci.org/vinpereira/ruby-business-day-api.svg?branch=master)](https://travis-ci.org/vinpereira/ruby-business-day-api)
 [![Dependency Status](https://gemnasium.com/badges/github.com/vinpereira/ruby-business-day-api.svg)](https://gemnasium.com/github.com/vinpereira/ruby-business-day-api)
 
 # Ruby/Sinatra Business Day API
