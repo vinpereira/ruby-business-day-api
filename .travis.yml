@@ -5,7 +5,22 @@ language: ruby
 services:
   - docker
 
+# env:
+#   - DOCKER_COMPOSE_VERSION=1.14.0
+
+# before_install:
+#   - sudo rm /usr/local/bin/docker-compose
+#   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+#   - chmod +x docker-compose
+#   - sudo mv docker-compose /usr/local/bin
+
+# script: docker-compose up
+
 before_install:
+  - docker run -d --rm --name mongodb -p 27017:27017 mongo
   - docker build -t business-day-api .
-  - docker run -d --rm --name business-day-service -p 9292:9292 business-day-api
+  - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
   - docker ps -a
+
+script:
+  - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
