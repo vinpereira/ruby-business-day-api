@@ -7,8 +7,8 @@ WORKDIR /usr/src/app
 RUN gem install bundler 
 
 # Install all dependencies
-RUN bundle install --without development test
+RUN bundle install
 
 EXPOSE 9292
 
-CMD ["puma", "-e", "production"]
+CMD ["puma"]
