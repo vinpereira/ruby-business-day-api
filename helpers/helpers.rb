@@ -1,4 +1,3 @@
-require 'httparty'
 require 'sinatra'
 require 'json'
 
@@ -8,7 +7,7 @@ module AppHelpers
   end
 
   def city_exists?(state:, city:)
-    file = File.read("#{Dir.pwd}/mock/estados-cidades.json")
+    file = File.read("#{Dir.pwd}/config/estados-cidades.json")
 
     states_hash = JSON.parse(file)
     state_hash = states_hash['estados'].detect { |s| normalize(s['sigla']) == normalize(state) }

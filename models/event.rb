@@ -1,4 +1,4 @@
-require "mongoid"
+require 'mongoid'
 
 class Event
   include Mongoid::Document

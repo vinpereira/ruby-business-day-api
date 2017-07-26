@@ -1,10 +1,10 @@
-require "mongoid"
+require 'mongoid'
 require "#{Dir.pwd}/models/event"
 
 class Holiday
   include Mongoid::Document
 
-  store_in collection: "holidays"
+  store_in collection: 'holidays'
 
   validates_presence_of :year, :state, :city
 
