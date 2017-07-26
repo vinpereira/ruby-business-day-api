@@ -37,7 +37,7 @@ class HolidayController
     holiday = get(@holiday_params)
 
     result = holiday.events.detect do |event|
-      event.date == date && event.type_code != OPTIONAL_DAY_OFF_TYPE && event.type_code != CONVENTIONAL_HOLIDAY_TYPE
+      event.date == params[:date] && event.type_code != OPTIONAL_DAY_OFF_TYPE && event.type_code != CONVENTIONAL_HOLIDAY_TYPE
     end
 
     ! result.nil?
