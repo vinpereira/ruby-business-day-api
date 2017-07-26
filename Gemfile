@@ -11,7 +11,8 @@ gem 'sinatra-contrib', '~>2.0.0'
 # group :test do
   # gem 'database_cleaner', '~>1.6.1'
 	# gem 'factory_girl', '~>4.8.0'
-	gem 'httparty', '~>0.15.6'
+  gem 'httparty', '~>0.15.6'
+  gem 'mongoid-rspec', '~>1.10.0'
   gem 'rspec', '~>3.6.0'
 # end
 
