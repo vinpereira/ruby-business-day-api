@@ -16,14 +16,14 @@ services:
 
 # script: docker-compose up
 
-# before_install:
-#   - docker run -d --rm --name mongodb -p 27017:27017 mongo
-#   - docker build -t business-day-api .
-#   - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
-#   - docker ps -a
-#
-# script:
-#   - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
+before_install:
+  - docker run -d --rm --name mongodb -p 27017:27017 mongo
+  - docker build -t business-day-api .
+  - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
+  - docker ps -a
+
+script:
+  - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
 
 deploy:
   - provider: codedeploy
