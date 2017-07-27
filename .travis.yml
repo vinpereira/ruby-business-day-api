@@ -38,4 +38,7 @@ deploy:
 
 after_deploy:
   - cd /home/ubuntu/app
-  - docker-compose up -d --build
+  - docker run -d --rm --name mongodb -p 27017:27017 mongo
+  - docker build -t business-day-api .
+  - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
+  - docker ps -a
