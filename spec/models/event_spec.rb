@@ -1,5 +1,7 @@
 require_relative "#{Dir.pwd}/models/event"
 
+RSpec.configure {|c| c.deprecation_stream = "#{Dir.pwd}/logs/deprecations.txt" }
+
 # Test suite for the Event model
 RSpec.describe Event, type: :model do
 	# Document type test

@@ -1,5 +1,7 @@
 require_relative "#{Dir.pwd}/models/holiday"
 
+RSpec.configure {|c| c.deprecation_stream = "#{Dir.pwd}/logs/deprecations.txt" }
+
 # Test suite for the Holiday model
 RSpec.describe Holiday, type: :model do
 	# Document type test
