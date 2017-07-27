@@ -42,7 +42,8 @@ deploy:
   application: BusinessDaysCodeDeploy
   deployment_group: TravisDeploy
   region: us-east-1
-  on: *2
+  on:
+    branch: develop
 
 script:
   - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
