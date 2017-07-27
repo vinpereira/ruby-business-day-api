@@ -3,6 +3,7 @@ require 'date'
 require 'json'
 require 'sinatra'
 require 'yaml'
+require 'httparty'
 
 require_relative "#{Dir.pwd}/config/mongoid"
 require_relative "#{Dir.pwd}/models/holiday"

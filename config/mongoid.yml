@@ -3,7 +3,7 @@ development:
     default:
       database: business_days
       hosts:
-        - localhost:27017
+        - mongodb:27017
 production:
   clients:
     default:
