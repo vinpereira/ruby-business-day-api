@@ -7,3 +7,7 @@ permissions:
   - object: /
     pattern: "**"
     owner: ubuntu
+  - object: /home/ubuntu/app/deploy.sh
+    mode: 755
+    type:
+      file
