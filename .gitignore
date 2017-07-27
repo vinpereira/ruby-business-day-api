@@ -1,3 +1,9 @@
+# Ignore MongoDB data
 data/
+
+# Ignore bundler config
 **/*.bundle
-logs/
+
+# Ignore all logfiles
+/log/*
+!/log/.keep
