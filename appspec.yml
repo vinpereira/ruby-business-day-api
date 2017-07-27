@@ -11,6 +11,3 @@ permissions:
     mode: 755
     type:
       - file
-hooks:
-  ApplicationStart:
-    - location: /home/ubuntu/app/deploy.sh
