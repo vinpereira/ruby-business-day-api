@@ -26,19 +26,14 @@ script:
   - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
 
 deploy:
-- provider: codedeploy
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
-  # wait-until-deployed: true
-  application: BusinessDaysCodeDeploy
-  deployment_group: TravisDeploy
-  region: us-east-1
-  on:
-    branch: develop
-
-after_deploy:
-  - cd /home/ubuntu/app
-  - docker run -d --rm --name mongodb -p 27017:27017 mongo
-  - docker build -t business-day-api .
-  - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
-  - docker ps -a
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    wait-until-deployed: true
+    bucket: "business-days-api-123456"
+    revision_type: github
+    application: BusinessDaysCodeDeploy
+    deployment_group: TravisDeploy
+    region: us-east-1
+    on:
+      branch: develop
