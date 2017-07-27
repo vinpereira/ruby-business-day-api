@@ -11,7 +11,3 @@ permissions:
     mode: 755
     type:
       - file
-hooks:
-  AfterInstall:
-    - location: /home/ubuntu/app/deploy.sh
-      timeout: 300

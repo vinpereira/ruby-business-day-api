@@ -35,3 +35,6 @@ deploy:
   region: us-east-1
   on:
     branch: develop
+    
+after_deploy:
+  - /home/ubuntu/app/deploy.sh
