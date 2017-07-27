@@ -35,6 +35,7 @@ deploy:
   region: us-east-1
   on:
     branch: develop
-    
+
 after_deploy:
-  - /home/ubuntu/app/deploy.sh
+  - cd /home/ubuntu/app
+  - docker-compose up -d --build
