@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo 'test' > test.txt
+cd /home/ubuntu/app
+docker-compose up -d --build

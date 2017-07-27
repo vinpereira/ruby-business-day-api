@@ -30,8 +30,6 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     wait-until-deployed: true
-    bucket: "business-days-api-123456"
-    revision_type: github
     application: BusinessDaysCodeDeploy
     deployment_group: TravisDeploy
     region: us-east-1
