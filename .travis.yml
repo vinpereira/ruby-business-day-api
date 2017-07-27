@@ -22,28 +22,20 @@ before_install:
   - docker run -d --rm --name business-day-service -p 9292:9292 --link mongodb:mongodb business-day-api
   - docker ps -a
 
+script:
+  - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
+
 deploy:
-# - provider: s3
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_KEY
-#   local_dir: dpl_cd_upload
-#   skip_cleanup: true
-#   on: &2
-#     repo: vinpereira/ruby-business-day-api
-#   bucket: business-days-api-123456
-#   region: us-east-1
 - provider: codedeploy
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   wait-until-deployed: true
-  # bucket: business-days-api-123456
-  # key: latest.zip
-  # bundle_type: zip
   application: BusinessDaysCodeDeploy
   deployment_group: TravisDeploy
   region: us-east-1
   on:
     branch: develop
 
-script:
-  - docker exec business-day-service /bin/sh -c "cd /usr/src/app; bundle exec rspec"
+after_deploy:
+- cd /home/ubuntu/app
+- docker-compose up -d --build
