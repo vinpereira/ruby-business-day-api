@@ -31,7 +31,7 @@ deploy:
   secret_access_key: $AWS_SECRET_KEY
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  on: &2
+  on:
     repo: vinpereira/ruby-business-day-api
   bucket: business-days-api-123456
   region: us-east-1
@@ -44,4 +44,3 @@ deploy:
   application: BusinessDaysCodeDeploy
   deployment_group: TravisDeploy
   region: us-east-1
-  on: *2
