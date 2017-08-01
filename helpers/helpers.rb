@@ -11,11 +11,12 @@ module AppHelpers
 
     states_hash = JSON.parse(file)
     state_hash = states_hash['estados'].detect { |s| normalize(s['sigla']) == normalize(state) }
-
-    halt 404, JSON.pretty_generate({ 'message' => 'This state does not exists' }) if state_hash.nil?
-
-    result = state_hash['cidades'].detect { |c| normalize(c) == normalize(city) }
-
-    halt 404, JSON.pretty_generate({ 'message' => 'This city does not exists' }) if result.nil?
+    
+    if state_hash.nil?
+      return false
+    else
+      result = state_hash['cidades'].detect { |c| normalize(c) == normalize(city) }
+      return ! result.nil?
+    end
   end
 end

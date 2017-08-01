@@ -9,15 +9,15 @@ RSpec.describe AppHelpers do
 		it "gets a String with diacritic, then remove it" do
 			expect(normalize('São Paulo')).to eq 'SAO_PAULO'
 		end
-		
+
 		it "gets a String with diacritic and lowercase, then remove it and return uppercase" do
 			expect(normalize('são paulo')).to eq 'SAO_PAULO'
 		end
-		
+
 		it "gets a String without diacritic and lowercase, then return uppercase" do
 			expect(normalize('sao paulo')).to eq 'SAO_PAULO'
 		end
-		
+
 		it "gets a String with diacritic and uppercase, then remove it" do
 			expect(normalize('SÃO PAULO')).to eq 'SAO_PAULO'
 		end
@@ -31,7 +31,7 @@ RSpec.describe AppHelpers do
 	# Test suite for city_exists?
 	describe "City exists method" do
 		it "la la la" do
-			expect(city_exists? state: 'SP', city: 'São Paulo').to be nil
+			expect(city_exists? state: 'SP', city: 'São Paulo').to be true
 		end
 	end
 end

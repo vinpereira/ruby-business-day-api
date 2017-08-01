@@ -18,7 +18,7 @@ class AppRoutes < Sinatra::Application
     before do
       content_type :json
 
-      city_exists? state: params[:state], city: params[:city]
+      halt 404, JSON.pretty_generate({ 'message' => 'This state or city does not exists' }) unless city_exists? state: params[:state], city: params[:city]
 
       @holiday_params = { city: normalize(params[:city]), state: normalize(params[:state]) }
       @holiday_controller = HolidayController.new
