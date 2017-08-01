@@ -9,29 +9,29 @@ permissions:
     owner: ubuntu
 hooks:
   ApplicationStop:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   BeforeInstall:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   AfterInstall:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   ApplicationStart:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   ValidateService:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   BeforeBlockTraffic:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   AfterBlockTraffic:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   BeforeAllowTraffic:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
   AfterAllowTraffic:
-    - location: /home/ubuntu/deploy
+    - location: /home/ubuntu/deploy.sh
       runas: ubuntu
