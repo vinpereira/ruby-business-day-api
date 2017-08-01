@@ -1,6 +1,6 @@
 version: '3'
 services:
-  business-day:  
+  business-day:
     container_name: business-day-service
     image: business-day-api
     build:
@@ -12,6 +12,7 @@ services:
       - mongodb
     depends_on:
       - mongodb
+    restart: on-failure
   mongodb:
     image: mongo:latest
     container_name: mongodb
