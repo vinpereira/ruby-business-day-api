@@ -7,8 +7,8 @@ apt-get install -y vim apt-transport-https ca-certificates curl software-propert
 # Install docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-apt update
-apt install -y docker-ce
+apt-get update
+apt-get install -y docker-ce
 
 # Install docker compose
 DOCKER_COMPOSE_VERSION=1.14.0
@@ -20,11 +20,16 @@ docker-compose --version
 
 # Install AWS code deploy
 apt-get update
-apt-get install python-pip ruby wget
+apt-get install -y python-pip ruby wget
 cd /home/ubuntu
 wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
 chmod +x ./install
 ./install auto
+
+# Install Nginx
+apt-get install nginx
+cp /home/ubuntu/app/scripts/nginx.conf /etc/nginx/sites-available/default
+service nginx restart
 
 # Run the first deploy
 cd /home/ubuntu/app
