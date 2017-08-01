@@ -10,6 +10,11 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt-get update
 apt-get install -y docker-ce
 
+# Run docker without sudo
+groupadd docker
+gpasswd -a $USER docker
+newgrp docker
+
 # Install docker compose
 DOCKER_COMPOSE_VERSION=1.14.0
 rm /usr/local/bin/docker-compose
@@ -30,7 +35,3 @@ chmod +x ./install
 apt-get install nginx
 cp /home/ubuntu/app/scripts/nginx.conf /etc/nginx/sites-available/default
 service nginx restart
-
-# Run the first deploy
-cd /home/ubuntu/app
-docker-compose up -d --build
