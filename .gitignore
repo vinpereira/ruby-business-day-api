@@ -7,3 +7,5 @@ data/
 # Ignore all logfiles
 /log/*
 !/log/.keep
+/logs/*
+!/logs/.keep
