@@ -7,7 +7,7 @@ permissions:
   - object: /
     pattern: "**"
     owner: ubuntu
-  - object: /scripts/
+  - object: /cd/
     pattern: "*.sh"
     owner: ubuntu
     mode: 755
@@ -15,5 +15,5 @@ permissions:
       - file
 hooks:
   AfterInstall:
-    - location: ./scripts/deploy.sh
+    - location: ./cd/deploy.sh
       runas: ubuntu
