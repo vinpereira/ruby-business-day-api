@@ -15,5 +15,5 @@ permissions:
       - file
 hooks:
   AfterInstall:
-    - location: /home/ubuntu/scripts/deploy.sh
+    - location: ./scripts/deploy.sh
       runas: ubuntu
