@@ -9,3 +9,7 @@ data/
 !/log/.keep
 /logs/*
 !/logs/.keep
+
+# Ignore terraform state
+**/*.terraform/
+**/*.tfvars

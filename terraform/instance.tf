@@ -1,5 +1,5 @@
 resource "aws_instance" "business-days" {
-  ami = "${lookup(var.AWS_AMIS, var.AWS_REGION)}"
+  ami           = "${lookup(var.AWS_AMIS, var.AWS_REGION)}"
   instance_type = "t2.micro"
 
   # the VPC subnet
@@ -10,6 +10,6 @@ resource "aws_instance" "business-days" {
 
   tags {
     Name = "Business Days"
-    api = "business-days"
+    api  = "business-days"
   }
 }
