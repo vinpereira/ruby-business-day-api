@@ -18,8 +18,8 @@ resource "aws_codedeploy_deployment_group" "business-days-travis-deploy-group" {
   deployment_config_name = "${aws_codedeploy_deployment_config.business-days-travis-deploy-config.id}"
 
   ec2_tag_filter {
-    key   = "api"
+    key   = "Name"
     type  = "KEY_AND_VALUE"
-    value = "business-days"
+    value = "Business Days"
   }
 }

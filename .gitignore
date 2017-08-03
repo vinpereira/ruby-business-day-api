@@ -13,3 +13,9 @@ data/
 # Ignore terraform state
 **/*.terraform/
 **/*.tfvars
+**/*.tfstate
+**/*.tfstate.backup
+
+# Ignore key pairs
+/keys/*
+!/keys/.keep

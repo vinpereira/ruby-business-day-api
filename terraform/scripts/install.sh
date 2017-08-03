@@ -11,9 +11,7 @@ apt-get update
 apt-get install -y docker-ce
 
 # Run docker without sudo
-groupadd docker
-gpasswd -a $USER docker
-newgrp docker
+gpasswd -a ubuntu docker
 
 # Install docker compose
 DOCKER_COMPOSE_VERSION=1.14.0
@@ -23,6 +21,12 @@ chmod +x docker-compose
 mv docker-compose /usr/local/bin
 docker-compose --version
 
+# Install Nginx
+apt-get update
+apt-get install -y nginx
+cp /tmp/nginx.conf /etc/nginx/sites-available/default
+service nginx restart
+
 # Install AWS code deploy
 apt-get update
 apt-get install -y python-pip ruby wget
@@ -30,8 +34,3 @@ cd /home/ubuntu
 wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install
 chmod +x ./install
 ./install auto
-
-# Install Nginx
-apt-get install nginx
-cp /home/ubuntu/app/scripts/nginx.conf /etc/nginx/sites-available/default
-service nginx restart

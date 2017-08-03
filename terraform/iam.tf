@@ -2,10 +2,6 @@ resource "aws_iam_user" "travis-user" {
   name = "Travis"
 }
 
-resource "aws_iam_access_key" "travis-access-key" {
-  user = "${aws_iam_user.travis-user.name}"
-}
-
 resource "aws_iam_user_policy_attachment" "attach-travis-code-deploy" {
   user       = "${aws_iam_user.travis-user.name}"
   policy_arn = "${aws_iam_policy.travis-code-deploy.arn}"
@@ -15,19 +11,19 @@ resource "aws_iam_role" "code-deploy-service-role" {
   name = "CodeDeployServiceRole"
 
   assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Action": "sts:AssumeRole",
-          "Principal": {
-            "Service": "ec2.amazonaws.com"
-          },
-          "Effect": "Allow",
-          "Sid": ""
-        }
-      ]
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "codedeploy.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
     }
+  ]
+}
 EOF
 }
 
