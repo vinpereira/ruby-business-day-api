@@ -1,7 +1,7 @@
-resource "aws_security_group" "business-days-allow-ssh-http" {
+resource "aws_security_group" "business-days-allow-ssh" {
   vpc_id      = "${aws_vpc.business-days-vpc.id}"
-  name        = "allow-ssh-http"
-  description = "security group that allows ssh, http and all egress traffic"
+  name        = "allow-ssh"
+  description = "security group that allows ssh and all egress traffic"
 
   egress {
     from_port   = 0
@@ -17,13 +17,24 @@ resource "aws_security_group" "business-days-allow-ssh-http" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  tags {
+    Name = "allow-ssh"
+  }
+}
+
+resource "aws_security_group" "business-days-allow-http" {
+  vpc_id      = "${aws_vpc.business-days-vpc.id}"
+  name        = "allow-http"
+  description = "security group that allows http traffic"
+
   ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0", "::/0"]
   }
 
   tags {
-    Name = "allow-ssh-http"
+    Name = "allow-http"
   }
 }

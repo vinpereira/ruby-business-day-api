@@ -27,9 +27,54 @@ resource "aws_iam_role" "code-deploy-service-role" {
 EOF
 }
 
+resource "aws_iam_role" "ec2-service-role" {
+  name = "CodeDeployEC2DeployInstance"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_role_policy_attachment" "attach-aws-code-deploy-role" {
   role       = "${aws_iam_role.code-deploy-service-role.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
+}
+
+resource "aws_iam_role_policy_attachment" "attach-aws-ec2-deploy-role" {
+  role       = "${aws_iam_role.ec2-service-role.name}"
+  policy_arn = "${aws_iam_policy.ec2-code-deploy.arn}"
+}
+
+resource "aws_iam_policy" "ec2-code-deploy" {
+  name = "CodeDeployEC2Permissions"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
 }
 
 resource "aws_iam_policy" "travis-code-deploy" {
